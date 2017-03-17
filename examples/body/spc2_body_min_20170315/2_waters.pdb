@@ -1,0 +1,8 @@
+MODEL        1
+HETATM    1  OW  SOL     1       2.300   6.280   1.130  1.00  0.00           O
+HETATM    2  HW1 SOL     1       1.370   6.260   1.500  1.00  0.00           H
+HETATM    3  HW2 SOL     1       2.310   5.890   0.210  1.00  0.00           H
+HETATM    4  OW  SOL     2       2.655   5.047  -0.140  1.00  0.00           O
+HETATM    5  HW1 SOL     2       3.005   4.877   0.780  1.00  0.00           H
+HETATM    6  HW2 SOL     2       1.775   4.597  -0.260  1.00  0.00           H
+END

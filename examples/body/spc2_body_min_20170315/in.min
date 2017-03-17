@@ -1,0 +1,40 @@
+# 2d polygon nparticle bodies
+
+units		real
+dimension       3
+atom_style	body nparticle 3 3
+
+# boundary p p p
+read_data       2_waters.data
+
+#velocity	all create 1.44 87287 loop geom
+# velocity all create 300 87287 loop geom
+
+pair_style	body 5.0
+pair_coeff	* * 1.0 1.0
+
+neighbor	0.7 bin
+neigh_modify    every 1 delay 0 check yes
+
+#fix		1 all nve/body
+fix 1 all nve/body
+#fix		1 all nvt/body temp 1.44 1.44 1.0
+# fix		2 all enforce2d
+
+compute         1 all body/local type 1 2 3
+dump            1 all local 1 min.dump.lammpstrj index c_1[1] c_1[2] c_1[3] c_1[4]
+
+# compute 2 all temp/body
+# compute_modify 2 dynamic yes
+
+#dump		2 all image 1 image.*.jpg type type
+#dump 3 all movie 1 movie.mpg type type size 640 480 &
+#		zoom 1.6 adiam 1.5 body type 1.0 0
+#dump_modify    2 pad 5
+dump trj all atom 1 min.lammpstrj
+
+# timestep 1.00 
+ thermo          1
+# thermo_style custom step temp c_2 pe etotal
+# run		100000
+minimize 1.0e-4 1.0e-6 1000 1000

@@ -1,0 +1,9 @@
+/Makefile.package
+/Makefile.package.settings
+/MAKE/MINE
+/Make.py.last
+/lmp_*
+
+/style_*.h
+
+!waterbox/**/*.a

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/fuqiuyu/work/QEM_MD/body/sethbrin/lammps_waterbox/src/DEPEND/fastdep.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+
+/home/fuqiuyu/work/QEM_MD/body/sethbrin/lammps_waterbox/src/STUBS/mpi.c
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+stdint.h
+-
+sys/time.h
+-
+mpi.h
+-
+

@@ -1,0 +1,95 @@
+LAMMPS (21 Dec 2016)
+# 2d polygon nparticle bodies
+
+units		real
+dimension       3
+atom_style	body nparticle 3 3
+
+# boundary p p p
+read_data       2_waters.data
+  orthogonal box = (0 0 0) to (18.6206 18.6206 18.6206)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  2 atoms
+  2 bodies
+
+#velocity	all create 1.44 87287 loop geom
+# velocity all create 300 87287 loop geom
+
+pair_style	body 5.0
+pair_coeff	* * 1.0 1.0
+
+neighbor	0.7 bin
+neigh_modify    every 1 delay 0 check yes
+
+#fix		1 all nve/body
+fix 1 all nve/body
+#fix		1 all nvt/body temp 1.44 1.44 1.0
+# fix		2 all enforce2d
+
+compute         1 all body/local type 1 2 3
+dump            1 all local 1 min.dump.lammpstrj index c_1[1] c_1[2] c_1[3] c_1[4]
+
+# compute 2 all temp/body
+# compute_modify 2 dynamic yes
+
+#dump		2 all image 1 image.*.jpg type type
+#dump 3 all movie 1 movie.mpg type type size 640 480 #		zoom 1.6 adiam 1.5 body type 1.0 0
+#dump_modify    2 pad 5
+dump trj all atom 1 min.lammpstrj
+
+# timestep 1.00
+ thermo          1
+# thermo_style custom step temp c_2 pe etotal
+# run		100000
+minimize 1.0e-4 1.0e-6 1000 1000
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 5.7
+  ghost atom cutoff = 5.7
+  binsize = 2.85, bins = 7 7 7
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair body, perpetual
+      pair build: half/bin/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Memory usage per processor = 8.19041 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0            0            0            0    -624.7205 
+       1            0            0            0            0    -624.7205 
+Loop time of 0.000279903 on 1 procs for 1 steps with 2 atoms
+
+83.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = quadratic factors are zero
+  Energy initial, next-to-last, final = 
+                     0                  0                  0
+  Force two-norm initial, final = 141.421 141.421
+  Force max component initial, final = 70.3674 70.3674
+  Final line search alpha, max atom move = 0.00142111 0.1
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.00024271 | 0.00024271 | 0.00024271 |   0.0 | 86.71
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 3.3379e-06 | 3.3379e-06 | 3.3379e-06 |   0.0 |  1.19
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 3.386e-05  |            |       | 12.10
+
+Nlocal:    2 ave 2 max 2 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    10 ave 10 max 10 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1 ave 1 max 1 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1
+Ave neighs/atom = 0.5
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:01:29
